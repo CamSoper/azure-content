@@ -89,7 +89,7 @@ There are two ways to enable compression:
 		
 > [AZURE.IMPORTANT] To be eligible for compression, a file must:
 >
-> - Be larger than 1 byte.
+> - Be larger than 300 bytes.
 > - Be smaller than 1 MB.
 > - Be a MIME type that has been [configured for compression](#standard-tier).
 
