@@ -18,12 +18,12 @@
 
 # Improve performance by compressing files
 
-This topic discusses how to improve file transfer speed and increase page load performance by compressing your files.
+Compression is a simple and effective method to improve file transfer speed and increase page load performance by reducing file size before it is sent from the server. It reduces bandwidth costs and provides a more responsive experience for your users.
 
-There are two ways CDN can support compression:
+There are two ways to enable compression:
 
-- You can enable compression on your origin server, in which case the CDN will support compression by default and deliver compressed files to clients.
-- You can enable compression directly on CDN edge servers, in which case the CDN will compress the files and serve it to end users.
+- You can enable compression on your origin server, in which case the CDN will pass through the compressed files and deliver compressed files to clients that request them.
+- You can enable compression directly on CDN edge servers, in which case the CDN will compress the files and serve it to end users, even if they are not compressed by the origin server.
 
 ## Enabling compression
 
@@ -89,35 +89,35 @@ There are two ways CDN can support compression:
 		
 > [AZURE.IMPORTANT] To be eligible for compression, a file must:
 >
-> - Be larger than 128 bytes.
+> - Be larger than 1 byte.
 > - Be smaller than 1 MB.
-> - Be a MIME type that has been [configured for compression](#enabling-compression).
+> - Be a MIME type that has been [configured for compression](#standard-tier).
 
 ### Tables
 
 The tables below describe CDN compression behavior for every scenario.
 
-#### Compression disabled or file is ineligible for compression
+#### Compression **disabled** or file is **ineligible** for compression
 
-|Requested format|Cached file|CDN response|Notes|
+|Client Request|CDN cached file|CDN response|Notes|
 |----------------|-----------|------------|-----|
 |Compressed|Compressed|Compressed|CDN transcodes between supported formats|
 |Compressed|Uncompressed|Uncompressed|    |	
 |Compressed|Not cached|Compressed or Uncompressed|Depends on origin response|
-|Uncompressed|Compressed|Uncompressed|CDN will go back to origin for uncompressed version|
-|Uncompressed|Uncompressed|Uncompressed|    |	
-|Uncompressed|Not cached|Uncompressed|     |
+|Not compressed|Compressed|Uncompressed|CDN will go back to origin for uncompressed version|
+|Not compressed|Uncompressed|Uncompressed|    |	
+|Not compressed|Not cached|Uncompressed|     |
 
-#### Compression enabled and file is eligible for compression
+#### Compression **enabled** and file is **eligible** for compression
 
-|Requested format|Cached file|CDN response|Notes|
+|Client Request|CDN cached file|CDN response|Notes|
 |----------------|-----------|------------|-----|
 |Compressed|Compressed|Compressed|CDN transcodes between supported formats|
 |Compressed|Uncompressed|Compressed|CDN performs compression|
 |Compressed|Not cached|Compressed|CDN performs compression if origin returns uncompressed|
-|Uncompressed|Compressed|Uncompressed|CDN performs decompression|
-|Uncompressed|Uncompressed|Uncompressed|     |	
-|Uncompressed|Not cached|Uncompressed|     |	
+|Not compressed|Compressed|Uncompressed|CDN performs decompression|
+|Not compressed|Uncompressed|Uncompressed|     |	
+|Not compressed|Not cached|Uncompressed|     |	
 
 
 ## Notes
